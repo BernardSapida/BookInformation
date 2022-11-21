@@ -6,6 +6,9 @@ class Main:
     yearLength = 21
     isbnLength = 0
 
+    # It opens the file, reads the file, splits the file into a list of books, removes the last item
+    # in the list, and then for each book in the list, it creates a dictionary, and then adds the
+    # dictionary to the list of books
     def readFile(self):
         openFile = open("lib_books.txt", "r")
         bookList = openFile.read().split("\n\n")
@@ -21,7 +24,9 @@ class Main:
             bookDictionary["isbn"] = book.split("\n")[4].split("ISBN: ")[1]
 
             self.books.append(bookDictionary)
-        
+
+    # It finds the length of the longest string in each of the four categories (title, author,
+    # publisher, isbn) and stores it in the corresponding variable.
     def findLength(self):
         for book in self.books:
             if(len(book["title"]) > self.titleLength): self.titleLength = len(book["title"]) + 5
@@ -29,6 +34,7 @@ class Main:
             if(len(book["publisher"]) > self.publisherLength): self.publisherLength = len(book["publisher"]) + 5
             if(len(book["isbn"]) > self.isbnLength): self.isbnLength = len(book["isbn"]) + 5
 
+    # It reads the file, then asks the user to input a number to choose an action.
     def startProgram(self):
         self.readFile()
 
@@ -101,5 +107,6 @@ class Main:
         print("\n---------------------------------------------------------------\n")
         print("Program ended!")
 
+# Creating an instance of the Main class and then calling the startProgram method.
 main = Main()
 main.startProgram()
