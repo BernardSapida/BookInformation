@@ -5,6 +5,7 @@ class Main:
     publisherLength = 0
     yearLength = 21
     isbnLength = 0
+    noLength = 0
 
     # It opens the file, reads the file, splits the file into a list of books, removes the last item
     # in the list, and then for each book in the list, it creates a dictionary, and then adds the
@@ -13,22 +14,25 @@ class Main:
         openFile = open("lib_books.txt", "r")
         bookList = openFile.read().split("\n\n")
         bookList.pop()
+        no = 1
 
         for book in bookList:
             bookDictionary = {}
 
+            bookDictionary["no"] = str(no)
             bookDictionary["title"] = book.split("\n")[0].split("Title: ")[1]
             bookDictionary["author"] = book.split("\n")[1].split("Author: ")[1]
             bookDictionary["publisher"] = book.split("\n")[2].split("Publisher: ")[1]
             bookDictionary["publication year"] = book.split("\n")[3].split("Publication Year: ")[1]
             bookDictionary["isbn"] = book.split("\n")[4].split("ISBN: ")[1]
-
+            no += 1
             self.books.append(bookDictionary)
 
     # It finds the length of the longest string in each of the four categories (title, author,
     # publisher, isbn) and stores it in the corresponding variable.
     def findLength(self):
         for book in self.books:
+            if(len(book["no"]) > self.noLength): self.noLength = len(book["no"]) + 5
             if(len(book["title"]) > self.titleLength): self.titleLength = len(book["title"]) + 5
             if(len(book["author"]) > self.authorLength): self.authorLength = len(book["author"]) + 5
             if(len(book["publisher"]) > self.publisherLength): self.publisherLength = len(book["publisher"]) + 5
@@ -57,6 +61,7 @@ class Main:
 
                 print("\n---------------------------------------------------------------\n")
                 print(
+                    "No." + ((self.noLength - 3) * " ") + 
                     "Title" + ((self.titleLength - 5) * " ") + 
                     "Author" + ((self.authorLength - 6) * " ") +
                     "Publisher" + ((self.publisherLength - 9) * " ") + 
@@ -65,6 +70,7 @@ class Main:
                 print((self.titleLength+self.authorLength+self.publisherLength+self.yearLength+self.isbnLength)*"-")
 
                 for book in self.books:
+                    print(book["no"], end = (self.noLength - len(book["no"])) * ' ')
                     print(book["title"], end = (self.titleLength - len(book["title"])) * ' ')
                     print(book["author"], end = (self.authorLength - len(book["author"])) * ' ')
                     print(book["publisher"], end = (self.publisherLength - len(book["publisher"])) * ' ')
@@ -81,6 +87,7 @@ class Main:
                 print("\n---------------------------------------------------------------\n")
 
                 # Book Title
+                book["no"] = str(len(self.books) + 1)
                 book["title"] = input("Title: ")
                 book["author"] = input("Author: ")
                 book["publisher"] = input("Publisher: ")

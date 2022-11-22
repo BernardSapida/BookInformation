@@ -52,3 +52,9 @@ Publisher: American Library Association
 Publication Year: 2014
 ISBN: 9780838911853
 
+Title: Global Library and Information Science
+Author: Ismail Abdullahi
+Publisher: IFLA
+Publication Year: 2009
+ISBN: 9783598220425
+
